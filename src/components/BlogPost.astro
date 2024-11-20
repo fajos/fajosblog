@@ -1,0 +1,51 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	pubDate: Date;
+	url: string;
+}
+
+const { title, description, pubDate, url } = Astro.props;
+---
+
+<article class="blog-post">
+	<a href={url}>
+		<h2>{title}</h2>
+		<p class="date">{pubDate.toLocaleDateString()}</p>
+		<p class="description">{description}</p>
+	</a>
+</article>
+
+<style>
+	.blog-post {
+		margin-bottom: 2rem;
+		padding: 1.5rem;
+		border-radius: 8px;
+		background: white;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+		transition: transform 0.2s ease;
+	}
+	.blog-post:hover {
+		transform: translateY(-2px);
+	}
+	.blog-post a {
+		text-decoration: none;
+		color: inherit;
+	}
+	.blog-post h2 {
+		margin: 0;
+		color: var(--primary);
+		font-size: 1.5rem;
+	}
+	.date {
+		color: var(--text-light);
+		font-size: 0.9rem;
+		margin: 0.5rem 0;
+	}
+	.description {
+		color: var(--text);
+		margin: 0;
+		line-height: 1.5;
+	}
+</style>

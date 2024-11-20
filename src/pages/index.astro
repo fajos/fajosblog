@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BlogPost from '../components/BlogPost.astro';
+
+const posts = await Astro.glob('./blog/*.md');
+const latestPosts = posts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()).slice(0, 3);
+---
+
+<Layout title="TechBlog - Home">
+	<section class="hero">
+		<h1>Welcome to Fajos TechBlog</h1>
+		<p>Hello and welcome to <span>Fajos TechBlog</span> – your go-to destination for insightful discussions, expert opinions, and the latest trends in the world of technology!</p>
+		<p>In today’s rapidly evolving tech landscape, staying informed is more important than ever. Whether you're a developer, cybersecurity enthusiast, data scientist, or simply someone who loves exploring innovative technology, you've come to the right place. Here, we dive into topics ranging from cybersecurity, software development, artificial intelligence, and cloud computing to the latest gadgets and tech solutions shaping the future.</p>
+		<p>This blog is not just about the technical side of things; it's a space where ideas meet innovation. Whether you’re looking to level up your coding skills, explore the world of cybersecurity, or get insights into the newest trends, we aim to provide content that’s informative, engaging, and accessible.</p>
+		<p>Thank you for joining us on this journey, and we hope you find value in the articles, tutorials, and insights shared here. Don't hesitate to share your thoughts by contacting us.</p>
+		<p>Stay curious, keep learning, and let's explore the endless possibilities of technology together!</p>
+		<br>
+		<p>Warm regards,</p>  
+		<p><em>Femi Adeyemi</em></p>  
+		<p>Founder, <span>Fajos TechBlog</span></p>
+	</section>
+
+	<section class="latest-posts">
+		<h2>Latest Posts</h2>
+		<div class="posts-grid">
+			{latestPosts.map(post => (
+				<BlogPost
+					title={post.frontmatter.title}
+					description={post.frontmatter.description}
+					pubDate={new Date(post.frontmatter.pubDate)}
+					url={post.url}
+				/>
+			))}
+		</div>
+		<div class="view-all">
+			<a href="/blog" class="button">View All Posts</a>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.hero {
+		text-align: justified;
+		padding: 3rem 0;
+	}
+	.hero h1 {
+		font-size: 2.5rem;
+		color: var(--primary);
+		margin: 0;
+	}
+	.hero span {
+		color: var(--primary);
+		
+	.hero p {
+		font-size: 1.0rem;
+		color: var(--text-light);
+		margin: 1rem 0 0;
+	}
+	.latest-posts {
+		margin-top: 3rem;
+	}
+	.latest-posts h2 {
+		font-size: 2rem;
+		margin-bottom: 2rem;
+	}
+	.posts-grid {
+		display: grid;
+		gap: 2rem;
+	}
+	.view-all {
+		text-align: center;
+		margin-top: 2rem;
+	}
+	.button {
+		display: inline-block;
+		padding: 0.75rem 1.5rem;
+		background: var(--primary);
+		color: white;
+		text-decoration: none;
+		border-radius: 6px;
+		font-weight: 500;
+		transition: background 0.2s ease;
+	}
+	.button:hover {
+		background: var(--primary-dark);
+	}
+</style>

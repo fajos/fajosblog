@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BlogPost from '../../components/BlogPost.astro';
+
+const posts = await Astro.glob('./*.md');
+const sortedPosts = posts.sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+---
+
+<Layout title="Blog Posts">
+	<h1>All Blog Posts</h1>
+	<div class="posts-grid">
+		{sortedPosts.map(post => (
+			<BlogPost
+				title={post.frontmatter.title}
+				description={post.frontmatter.description}
+				pubDate={new Date(post.frontmatter.pubDate)}
+				url={post.url}
+			/>
+		))}
+	</div>
+</Layout>
+
+<style>
+	h1 {
+		font-size: 2.5rem;
+		color: var(--primary);
+		margin-bottom: 2rem;
+	}
+	.posts-grid {
+		display: grid;
+		gap: 2rem;
+	}
+</style>
